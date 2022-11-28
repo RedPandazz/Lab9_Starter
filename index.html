@@ -88,6 +88,13 @@
   </main>
 
   <script>
+    class EmptyError extends Error{
+      constructor(message){
+        super(message);
+        this.name = "EmptyError";
+      }
+    }
+
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -95,12 +102,72 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      try{
+        if(firstNum == null){
+          throw new EmptyError("First number is missing");
+        }
+        if(secondtNum == null){
+          throw new EmptyError("Second number is missing");
+        }
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      }
+      catch(error){
+        console.error(error);
+      }
+      finally{
+        console.log('Calculation Success');
+      }
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
+    errorBtns[0].addEventListener('click', e => {
+      console.log("I am a console log");
+    });
+    errorBtns[1].addEventListener('click', e => {
+      console.error("I am a console error");
+    });
+    errorBtns[2].addEventListener('click', e => {
+      console.count("I am a console count");
+    });
+    errorBtns[3].addEventListener('click', e => {
+      console.warn("I am a console warn");
+    });
+    errorBtns[4].addEventListener('click', e => {
+      console.assert("I am a console assert");
+    });
+    errorBtns[5].addEventListener('click', e => {
+      console.assert(0 != 1, "I am a console assertion");
+    });
+    errorBtns[6].addEventListener('click', e => {
+      console.dir(errorBtns[6]);
+    });
+    errorBtns[7].addEventListener('click', e => {
+      console.dirxml(errorBtns[7]);
+    });
+    errorBtns[8].addEventListener('click', e => {
+      console.group("I am a console group");
+    });
+    errorBtns[9].addEventListener('click', e => {
+      console.groupEnd("I am a console groupEnd");
+    });
+    errorBtns[10].addEventListener('click', e => {
+      console.table(['0','1','2']);
+    });
+    errorBtns[11].addEventListener('click', e => {
+      console.time("I am console timer");
+    });
+    errorBtns[12].addEventListener('click', e => {
+      console.timeEnd("I am console timerEnd");
+    });
+    errorBtns[13].addEventListener('click', e => {
+      console.trace();
+    });
+    errorBtns[14].addEventListener('click', e => {
+      console.log("I am an error!");
+      errorBtns[100].huh();
+    });
     // You may move this JS to another file if you wish
   </script>
 </body>
